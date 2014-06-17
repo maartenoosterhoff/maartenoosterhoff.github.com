@@ -6,22 +6,15 @@ disqus_shortname:
 # Owner/author information
 owner:
   name:           Maarten Oosterhoff
-  avatar:         bio-photo.jpg
+  avatar:         me.jpg
   bio:            "Describe your self."
-  email:          your@email.com
+  email:          maarten.oosterhoff@gmail.com
   # Social networking links are used in author-bio sidebar. Update and remove as you like.
   twitter:
   facebook:
   github:
   stackoverflow:
   linkedin:
-  instagram:
-  lastfm:
-  tumblr:
-  pinterest:
-  foursquare:
-  steam:
-  dribbble:
   # For Google Authorship https://plus.google.com/authorship
   google_plus:
 
