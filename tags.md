@@ -1,5 +1,5 @@
 ---
-layout: post-index
+layout: post
 title: Tag Index
 permalink: /tags/
 description: "An archive of posts sorted by tag."
