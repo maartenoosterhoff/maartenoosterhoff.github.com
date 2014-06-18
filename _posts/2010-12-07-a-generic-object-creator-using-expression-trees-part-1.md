@@ -25,29 +25,29 @@ Today I will show how to create an instance of an object using the constructor w
 
 Creating an object without any constructor parameters turned out not to be very difficult.
 
-{% highlight csharp %}
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-	using System.Linq.Expressions;
-	 
-	namespace Playground {
-		public static class ObjectCreator {
-			public static TClass CreateObject<TClass>() where TClass : new() {
-				Expression<Func<TClass>> creatorExpression =
-					Expression.Lambda(
-						Expression.New(typeof(TClass)),
-						null
-					) as Expression<Func<TClass>>;
-				Func<TClass> creator = creatorExpression.Compile();
-				if (creator != null) {
-					return creator();
-				}
-				throw new Exception("Cannot create instance.");
+{% highlight csharp linenos %}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Linq.Expressions;
+ 
+namespace Playground {
+	public static class ObjectCreator {
+		public static TClass CreateObject<TClass>() where TClass : new() {
+			Expression<Func<TClass>> creatorExpression =
+				Expression.Lambda(
+					Expression.New(typeof(TClass)),
+					null
+				) as Expression<Func<TClass>>;
+			Func<TClass> creator = creatorExpression.Compile();
+			if (creator != null) {
+				return creator();
 			}
+			throw new Exception("Cannot create instance.");
 		}
 	}
+}
 {% endhighlight %}
 
 What is going on here? We have a generic method which creates an expression tree, compiles the expression tree into a lambda, and executes the lambda, and returns the result of the executed lambda.
@@ -60,36 +60,38 @@ This doesn't work if for some reason, at compile-time, we cannot reference the a
 
 After some fiddling around I came to the following methods.
 
-	using System;
-	using System.Collections.Generic;
-	using System.Linq;
-	using System.Text;
-	using System.Linq.Expressions;
+{% highlight csharp linenos %}
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Linq.Expressions;
+
+namespace Playground {
+	public static partial class ObjectCreator {
+		public static TClass CreateObject<TClass>() where TClass : new() {
+			return CreateObject<TClass>(typeof(TClass));
+		}
+		public static object CreateObject(Type type) {
+			return CreateObject<object>(type);
+		}
+		public static TBase CreateObject<TBase>(Type type) {
+			Expression expression = Expression.New(type);
+			if (type != typeof(TBase)) {
+				expression = Expression.Convert(expression, typeof(TBase));
+			}
+			expression = Expression.Lambda(expression, null);
+			Expression<Func<TBase>> creatorExpression = expression as Expression<Func<TBase>>;
  
-	namespace Playground {
-		public static partial class ObjectCreator {
-			public static TClass CreateObject<TClass>() where TClass : new() {
-				return CreateObject<TClass>(typeof(TClass));
+			Func<TBase> creator = creatorExpression.Compile();
+			if (creator != null) {
+				return creator();
 			}
-			public static object CreateObject(Type type) {
-				return CreateObject<object>(type);
-			}
-			public static TBase CreateObject<TBase>(Type type) {
-				Expression expression = Expression.New(type);
-				if (type != typeof(TBase)) {
-					expression = Expression.Convert(expression, typeof(TBase));
-				}
-				expression = Expression.Lambda(expression, null);
-				Expression<Func<TBase>> creatorExpression = expression as Expression<Func<TBase>>;
-	 
-				Func<TBase> creator = creatorExpression.Compile();
-				if (creator != null) {
-					return creator();
-				}
-				throw new Exception("Cannot create instance.");
-			}
+			throw new Exception("Cannot create instance.");
 		}
 	}
+}
+{% endhighlight %}
 
 Now we have three methods.
 
@@ -101,22 +103,24 @@ It was necessary to alter the expression a bit, since the expression created by 
 
 Now we can create instances as follows:
 
-	namespace Playground.Program {
-		class MyTestClass { }
-		class MyDerivedTestClass : MyTestClass { }
-		class Program {
-			static void Main(string[] args) {
-				// Use the generic version
-				MyTestClass c = ObjectCreator.CreateObject<MyTestClass>();
-	 
-				// Use the parameter version
-				object o = ObjectCreator.CreateObject(typeof(MyTestClass));
-	 
-				// Use the baseclass+parameter version
-				MyTestClass c2 = ObjectCreator.CreateObject<MyTestClass>(typeof(MyDerivedTestClass));
-			}
+{% highlight csharp linenos %}
+namespace Playground.Program {
+	class MyTestClass { }
+	class MyDerivedTestClass : MyTestClass { }
+	class Program {
+		static void Main(string[] args) {
+			// Use the generic version
+			MyTestClass c = ObjectCreator.CreateObject<MyTestClass>();
+ 
+			// Use the parameter version
+			object o = ObjectCreator.CreateObject(typeof(MyTestClass));
+ 
+			// Use the baseclass+parameter version
+			MyTestClass c2 = ObjectCreator.CreateObject<MyTestClass>(typeof(MyDerivedTestClass));
 		}
 	}
+}
+{% endhighlight %}
 
 Notes:
 
