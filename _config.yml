@@ -10,10 +10,10 @@ owner:
   bio:            "Devoted father, geek, software developer."
   email:          maarten.oosterhoff@gmail.com
   # Social networking links are used in author-bio sidebar. Update and remove as you like.
-  twitter:			https://twitter.com/Maarten1977
-  github: 			https://github.com/maartenoosterhoff
-  stackoverflow:	http://stackoverflow.com/users/261050/maarten
-  linkedin:			https://www.linkedin.com/profile/view?id=10816897
+  twitter:			Maarten1977
+  github: 			maartenoosterhoff
+  stackoverflow:	261050/maarten
+  linkedin:			maartenoosterhoff
 #  # For Google Authorship https://plus.google.com/authorship
 #  google_plus:
 
