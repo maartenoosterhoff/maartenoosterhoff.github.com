@@ -25,5 +25,4 @@ description: "An archive of posts sorted by tag."
 {% endif %}{% endfor %}
 </ul>
 </article>
-	<!-- /.hentry -->
 {% endunless %}{% endfor %}
