@@ -5,26 +5,24 @@ permalink: /tags/
 description: "An archive of posts sorted by tag."
 ---
  
-{% capture tags %}
-  {% for tag in site.tags %}
-    {{ tag[0] | replace: ' ', '&nbsp;' }}
-  {% endfor %}
-{% endcapture %}
-{% assign sortedtags = tags | split: ' ' | sort %}
- 
-<ul class="tag-box inline">
-{% for tag in sortedtags %}
-  {% for post in site.tags[tag] %}
-		<li><a href="#{{ tag }}">{{ tag }}</a></li>
-	{% endfor %}
-{% endfor %}
+{% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+{% assign tags_list = site_tags | split:',' | sort %}
+
+<ul class="entry-meta inline-list">
+  {% for item in (0..site.tags.size) %}{% unless forloop.last %}
+    {% capture this_word %}{{ tags_list[item] | strip_newlines }}{% endcapture %}
+  	<li><a href="#{{ this_word }}" class="tag">{{ this_word }} <span>{{ site.tags[this_word].size }}</span></a></li>
+  {% endunless %}{% endfor %}
 </ul>
- 
-{% for tag in sortedtags %}
-	<h2 id="{{ tag }}">{{ tag }}</h2>
-	<ul class="post-list">
-	{% for post in site.tags[tag] %}
-		<li><a href="{{ site.url }}{{ post.url }}">{{ post.title }}<span class="entry-date"><time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%B %d, %Y" }}</time></span></a></li>
-	{% endfor %}
-	</ul>
-{% endfor %}
+
+{% for item in (0..site.tags.size) %}{% unless forloop.last %}
+  {% capture this_word %}{{ tags_list[item] | strip_newlines }}{% endcapture %}
+	<article>
+	<h2 id="{{ this_word }}">{{ this_word }}</h2>
+		<ul>
+    {% for post in site.tags[this_word] %}{% if post.title != null %}
+      <li class="entry-title"><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
+    {% endif %}{% endfor %}
+		</ul>
+	</article><!-- /.hentry -->
+{% endunless %}{% endfor %}
