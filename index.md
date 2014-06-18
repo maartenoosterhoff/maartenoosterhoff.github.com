@@ -3,5 +3,5 @@ layout: home
 description: "A responsive Jekyll theme with editorial tendencies by designer Michael Rose."
 tags: [Jekyll, theme, responsive, blog, template]
 image:
-  feature: olgas461.png
+  feature: olgas461.jpg
 ---
