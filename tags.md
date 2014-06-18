@@ -17,12 +17,13 @@ description: "An archive of posts sorted by tag."
 
 {% for item in (0..site.tags.size) %}{% unless forloop.last %}
   {% capture this_word %}{{ tags_list[item] | strip_newlines }}{% endcapture %}
-	<article>
+<!--	<article> -->
 	<h2 id="{{ this_word }}">{{ this_word }}</h2>
 		<ul>
     {% for post in site.tags[this_word] %}{% if post.title != null %}
       <li class="entry-title"><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></li>
     {% endif %}{% endfor %}
 		</ul>
-	</article><!-- /.hentry -->
+	<!--</article>-->
+	<!-- /.hentry -->
 {% endunless %}{% endfor %}
