@@ -13,8 +13,6 @@ tags:
 - object factory
 ---
 
-## A generic object creator using expression trees (part 1)
-
 This blog series contains the following posts:
 
 [1. Create an instance of an object using the constructor with no parameters](/a-generic-object-creator-using-expression-trees-part-1)
@@ -27,6 +25,7 @@ Today I will show how to create an instance of an object using the constructor w
 
 Creating an object without any constructor parameters turned out not to be very difficult.
 
+{% highlight csharp %}
 	using System;
 	using System.Collections.Generic;
 	using System.Linq;
@@ -49,6 +48,7 @@ Creating an object without any constructor parameters turned out not to be very 
 			}
 		}
 	}
+{% endhighlight %}
 
 What is going on here? We have a generic method which creates an expression tree, compiles the expression tree into a lambda, and executes the lambda, and returns the result of the executed lambda.
 
