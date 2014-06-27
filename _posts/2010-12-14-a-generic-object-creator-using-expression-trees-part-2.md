@@ -15,8 +15,8 @@ tags:
 
 This blog series contains the following posts:
 
-[1. Create an instance of an object using the constructor without parameters](/a-generic-object-creator-using-expression-trees-part-1)
-[2. Create an instance of an object using the constructor with parameters](/a-generic-object-creator-using-expression-trees-part-2)
+* [Create an instance of an object using the constructor with no parameters](/a-generic-object-creator-using-expression-trees-part-1)
+* [Create an instance of an object using the constructor with parameters](/a-generic-object-creator-using-expression-trees-part-2)
 
 In the [previous post](/a-generic-object-creator-using-expression-trees-part-1) in this series I showed how to create an instance of an object, using expression trees, using the constructor with no parameters. In this post I will show how to do it using a constructor with parameters.
 
