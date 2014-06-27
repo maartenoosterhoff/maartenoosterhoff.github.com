@@ -17,6 +17,7 @@ This blog series contains the following posts:
 
 * [Create an instance of an object using the constructor with no parameters](/a-generic-object-creator-using-expression-trees-part-1)
 * [Create an instance of an object using the constructor with parameters](/a-generic-object-creator-using-expression-trees-part-2)
+* [Caching the compiled expression tree](/a-generic-object-creator-using-expression-trees-part-3)
 
 One of the things I've bumped into in the past years is that using reflection to create an instance of an object is a solution that works, but somehow I do not like it. In the time of .NET 2.0 it was the only option, but with .NET 3.0 another option was made available: expression trees. I like it, but unfortunately haven't used it much. Therefore I went looking for information about expression trees. The [msdn site](http://msdn.microsoft.com/en-us/library/bb397951.aspx) provided me with plenty information.
 
