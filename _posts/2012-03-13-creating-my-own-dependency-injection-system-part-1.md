@@ -1,16 +1,15 @@
 ---
 layout: post
-title: A generic object creator using expression trees, part 3
-description: "Creating objects using expression trees"
-permalink: a-generic-object-creator-using-expression-trees-part-3
+title: Creating my own dependency injection system, part 1
+description: "Creating my own dependency injection system"
+permalink: creating-my-own-dependency-injection-system-part-1
 comments: true
 tags:
+- binding rule
 - c#
-- constructor
-- expression tree
+- dependency injection
+- di
 - generics
-- object creator
-- object factory
 ---
 
 This blog series contains the following posts:
