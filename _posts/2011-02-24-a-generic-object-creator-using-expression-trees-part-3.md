@@ -21,7 +21,7 @@ This blog series contains the following posts:
 
 In the previous posts in this series I showed how to create an instance of an object, using expression trees, both without parameters, and with parameters. Now, unless the compiled expression tree is saved somewhere it's not going to be very quick, since the compilation of the expression tree into a lambda is the most expensive action.
 
-For this purpose, I'll create a simple class LambdaCacher which will keep a dictionary containing the lambdas with their keys. The key for a lambda is the return type in combination with the types of the constructor arguments. To create a key is simple: just concatenate all Type.FullName values, and I'm using a pipe (|) to separate the full names.
+For this purpose, I'll create a simple class LambdaCacher which will keep a dictionary containing the lambdas with their keys. The key for a lambda is the return type in combination with the types of the constructor arguments. To create a key is simple: just concatenate all Type.FullName values, and I'm using a pipe `|` to separate the full names.
 
 If you look back at the previous post there is a method called CreateLambda in the ObjectCreator class, which creates the lambda. This will be the perfect place to use the new LambdaCacher class.
 
@@ -106,17 +106,17 @@ And now we have to use the new CreateLambda method in the ObjectCreate class.
 
 Of course, the question is now if it actually makes any difference. A test is in order.
 
-The first test will create 1 object.
-Running without the lambda cacher: 0.0103251 seconds
-Running with the lambda cacher: 0.0272546 seconds
+* The first test will create 1 object.
+* Running without the lambda cacher: 0.0103251 seconds
+* Running with the lambda cacher: 0.0272546 seconds
 
-The first test will create 10 object.
-Running without the lambda cacher: 0.0429771 seconds
-Running with the lambda cacher: 0.0177748 seconds
+* The first test will create 10 object.
+* Running without the lambda cacher: 0.0429771 seconds
+* Running with the lambda cacher: 0.0177748 seconds
 
-The second test will create 100.000 objects.
-Running without the lambda cacher: 25.31 seconds
-Running with the lambda cacher: 0.0693901 seconds
+* The second test will create 100.000 objects.
+* Running without the lambda cacher: 25.31 seconds
+* Running with the lambda cacher: 0.0693901 seconds
 
 In the first two tests I noticed that the times were not always identical. I suspect that the times necessary are too small to make a real difference, and some startup costs might be different each time. But the third test does show how effective the caching the of lambdas is.
 
